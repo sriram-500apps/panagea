@@ -1,0 +1,37 @@
+# Dependencies
+node_modules
+
+# Logs
+*.logs*
+
+# Temp directories
+.temp
+.temp
+.cache
+
+# Generated dirs
+dist
+playwright-report/
+
+# Nuxt
+packages/nuxt/playground
+!packages/nuxt/playground/.nuxt/tsconfig.json
+.output
+.vercel_build_output
+.build-*
+.env
+.netlify
+
+# Env
+.env
+
+# Testing
+
+# VSCode
+.vscode
+
+# Intellij ideo
+
+#OSX
+
+#AWS
