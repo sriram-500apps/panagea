@@ -18,11 +18,12 @@
           :class="inputClass"
           :placeholder="placeholder"
           :disabled="disabled"
+          :required="required"
+          :aria-invalid="hasError"
+          :aria-describedby="hasError ? errorId : null"
           @input="onInput"
           @blur="$emit('blur', $event)"
           @focus="$emit('focus', $event)"
-          :aria-invalid="hasError"
-          :aria-describedby="hasError ? errorId : null"
         />
         <textarea
           v-else-if="type === 'textarea'"
@@ -32,11 +33,12 @@
           :class="inputClass"
           :placeholder="placeholder"
           :disabled="disabled"
+          :required="required"
+          :aria-invalid="hasError"
+          :aria-describedby="hasError ? errorId : null"
           @input="$emit('input', $event.target.value)"
           @blur="$emit('blur', $event)"
           @focus="$emit('focus', $event)"
-          :aria-invalid="hasError"
-          :aria-describedby="hasError ? errorId : null"
         ></textarea>
         <select
           v-else-if="type === 'select'"
@@ -45,11 +47,12 @@
           :class="inputClass"
           :disabled="disabled"
           :value="value"
+          :required="required"
+          :aria-invalid="hasError"
+          :aria-describedby="hasError ? errorId : null"
           @change="$emit('change', $event.target.value)"
           @blur="$emit('blur', $event)"
           @focus="$emit('focus', $event)"
-          :aria-invalid="hasError"
-          :aria-describedby="hasError ? errorId : null"
         >
           <slot></slot>
         </select>
@@ -91,6 +94,7 @@ interface InputFieldProps {
   errorMessage?: string
   optional?: boolean
   modelValue?: any
+  required?: boolean
 }
 
 const props = withDefaults(defineProps<InputFieldProps>(), {
@@ -100,7 +104,8 @@ const props = withDefaults(defineProps<InputFieldProps>(), {
   helpText: '',
   errorMessage: '',
   optional: false,
-  modelValue: null
+  modelValue: null,
+  required: false
 })
 
 const inputValue = ref(props.modelValue)

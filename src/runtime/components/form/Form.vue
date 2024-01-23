@@ -39,6 +39,8 @@ const props = withDefaults(defineProps<Props>(), {
   schema: () => ({ fields: [] }),
 });
 
+const emits = defineEmits(['submit'])
+
 // State
 const formValues = ref({});
 
@@ -47,8 +49,7 @@ const flattenedFields = computed(() => flattenFormFields(props.schema.fields));
 
 // Methods
 const handleSubmit = () => {
-  // Handle form submission logic here
-  console.log('Form values:', formValues.value);
+  emits('submit', formValues.value)
 };
 
 // Lifecycle Hook
