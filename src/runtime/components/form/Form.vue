@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- Start of Form -->
-    <form @submit.prevent="handleSubmit" class="max-w-md mx-auto mt-8 p-4 bg-white shadow-md rounded-md">
+    <form
+      @submit.prevent="handleSubmit"
+      class="max-w-md mx-auto mt-8 p-4 bg-white shadow-md rounded-md"
+    >
       <!-- Start of Form Title -->
       <h2 class="text-2xl font-semibold mb-4">{{ schema.title }}</h2>
       <!-- End of Form Title -->
@@ -9,7 +12,7 @@
       <!-- Start of Form Description -->
       <p class="text-gray-600 mb-4">{{ schema.description }}</p>
       <!-- End of Form Description -->
-
+{{ formValues  }}
       <!-- Start of Fields Rendering -->
       <div v-for="(field, index) in flattenedFields" :key="index" class="mb-4">
         <PDynamicFormField :field="field" v-model="formValues[field.name]" />
@@ -17,7 +20,10 @@
       <!-- End of Fields Rendering -->
 
       <!-- Start of Submit Button -->
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+      >
         Submit
       </button>
       <!-- End of Submit Button -->
@@ -27,9 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, withDefaults } from 'vue';
-import { flattenFormFields } from '../../utils/formUtils.ts';
-
+import { ref, computed, onMounted, withDefaults } from 'vue'
+import { flattenFormFields } from '../../utils/formUtils.ts'
 
 interface Props {
   schema?: object
@@ -37,25 +42,25 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   schema: () => ({ fields: [] }),
-});
+})
 
 const emits = defineEmits(['submit'])
 
 // State
-const formValues = ref({});
+const formValues = ref({})
 
 // Computed
-const flattenedFields = computed(() => flattenFormFields(props.schema.fields));
+const flattenedFields = computed(() => flattenFormFields(props.schema.fields))
 
 // Methods
 const handleSubmit = () => {
   emits('submit', formValues.value)
-};
+}
 
 // Lifecycle Hook
 onMounted(() => {
   // Additional initialization logic can go here
-});
+})
 </script>
 
 <style scoped>
