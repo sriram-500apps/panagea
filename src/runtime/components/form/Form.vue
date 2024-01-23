@@ -13,7 +13,6 @@
     <!-- Start of Fields Rendering -->
     <div v-for="(field, index) in schema.fields" :key="index" class="mb-4">
       <PDynamicFormField :field="field" v-model="formValues[field.name]" />
-      formValues -  {{ formValues }}
     </div>
     <!-- End of Fields Rendering -->
 
