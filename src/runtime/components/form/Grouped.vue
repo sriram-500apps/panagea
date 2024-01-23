@@ -7,41 +7,38 @@
     <!-- Start of Form Description -->
     <p class="text-gray-600 mb-4">{{ field.description }}</p>
     <!-- End of Form Description -->
-    <div
-      v-for="(groupedField, index) in field.fields"
-      :key="index"
-      class="mb-4"
-    >
+
+    <div v-for="(groupedField, index) in field.fields" :key="index" class="mb-4">
       <PDynamicFormField
-        v-model="formValues[field.name]"
         :field="groupedField"
+        v-model="formValues[field.name][groupedField.name]"
       />
     </div>
-    <!-- formValues -  {{ formValues }} -->
   </div>
 </template>
+
 <script setup lang="ts">
-import { withDefaults } from 'vue'
+import { withDefaults } from 'vue';
 
 interface Props {
-  field: object
-  modelValue?: any
+  field: object;
+  modelValue?: any;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
+});
+
+const formValues = ref({});
+
+const emits = defineEmits(['update:modelValue']);
+
+watchEffect(() => {
+  const { name } = props.field;
+if (!formValues.value[name]) {
+    // Initialize nested formValues with the key of field.name
+    formValues.value= { [name]: {} };
+  }
+  emits('update:modelValue', formValues)
 })
-
-const formValues = ref({})
-
-const inputValue = ref(null)
-const emits = defineEmits(['update:modelValue'])
-
-watch(
-  () => formValues.value,
-  (newVal: any) => {
-    emits('update:modelValue', newVal)
-  },
-  { deep: true }
-)
 </script>
