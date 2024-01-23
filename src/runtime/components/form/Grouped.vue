@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults } from 'vue';
+import { withDefaults, ref, defineProps, defineEmits, watchEffect, watch } from 'vue';
 
 interface Props {
   field: object;
@@ -38,14 +38,14 @@ if (!formValues.value[name]) {
     // Initialize nested formValues with the key of field.name
     formValues.value= { [name]: {} };
   }
-  emits('update:modelValue', {})
-})
+  emits('update:modelValue', {});
+});
 
 watch(
-    () => formValues.value,
-    (newVal: any) => {
-        emits('update:modelValue', newVal[name])
-    },
-    {deep:true}
-)
+  () => formValues.value,
+  (newVal: any) => {
+    emits('update:modelValue', newVal[name]);
+  },
+  { deep: true }
+);
 </script>
