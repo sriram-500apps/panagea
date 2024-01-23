@@ -11,7 +11,7 @@
       "isRequired": true
     },
     {
-      "type": "select",
+      "type": "text",
       "label": "Country",
       "name": "country",
       "options": ["USA", "Canada", "UK"]
@@ -20,6 +20,7 @@
       "formType": "grouped",
       "title": "Grouped Form Example",
       "description": "Form fields organized into groups.",
+      "name":"grouped",
       "fields": [
         {
           "type": "text",
@@ -54,6 +55,7 @@
       "formType": "wizard",
       "title": "Wizard Form Example",
       "description": "Form with multiple steps (wizard).",
+      "name":"wizard",
       "fields": [
         {
           "type": "text",

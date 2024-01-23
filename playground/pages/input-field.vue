@@ -1,7 +1,8 @@
 <template>
   <div>
+    email - {{ email }}
     <!-- Example 1: Input with label -->
-    <PInputField id="email" label="Email" name="email" placeholder="you@example.com">
+    <PInputField id="email" type="email" v-model="email" label="Email" name="email" placeholder="you@example.com">
       <template #icon-right>
         <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
       </template>
@@ -112,4 +113,5 @@
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid';
 
 const errorMessage = 'Not a valid email address.';
+const email = ref("")
 </script>

@@ -11,14 +11,14 @@
         <!-- Input Element -->
         <input
           v-if="isTextInput"
+          v-model="inputValue"
           :type="type"
           :name="name"
           :id="id"
           :class="inputClass"
           :placeholder="placeholder"
           :disabled="disabled"
-          :value="value"
-          @input="$emit('input', $event.target.value)"
+          @input="onInput"
           @blur="$emit('blur', $event)"
           @focus="$emit('focus', $event)"
           :aria-invalid="hasError"
@@ -26,12 +26,12 @@
         />
         <textarea
           v-else-if="type === 'textarea'"
+          v-model="inputValue"
           :name="name"
           :id="id"
           :class="inputClass"
           :placeholder="placeholder"
           :disabled="disabled"
-          :value="value"
           @input="$emit('input', $event.target.value)"
           @blur="$emit('blur', $event)"
           @focus="$emit('focus', $event)"
@@ -53,10 +53,9 @@
         >
           <slot></slot>
         </select>
-        <fieldset v-else>
-          <legend>{{ label }}</legend>
-          <slot></slot>
-        </fieldset>
+        <div v-else>
+          No field
+        </div>
         <!-- End of Input Element -->
         <slot name="icon-right" />
       </div>
@@ -82,24 +81,30 @@ import { defineProps, withDefaults } from 'vue'
 interface InputFieldProps {
   id?: string
   label: string
-  type: 'text' | 'number' | 'email' | 'textarea' | 'select'
+  type: 'text' | 'number' | 'email' | 'textarea' | 'select' | 'tel' | 'file' | 'password'
   name: string
-  placeholder: string
-  disabled: boolean
-  value: string | number
-  helpText: string
-  errorMessage: string
-  optional: boolean
+  placeholder?: string
+  disabled?: boolean
+  value?: string | number
+  helpText?: string
+  errorMessage?: string
+  optional?: boolean
+  modelValue?: any
 }
 
 const props = withDefaults(defineProps<InputFieldProps>(), {
-  type: 'text',
+  placeholder: '',
   disabled: false,
   value: '',
   helpText: '',
   errorMessage: '',
   optional: false,
+  modelValue: null
 })
+
+const inputValue = ref(props.modelValue)
+
+const emits = defineEmits(['update:modelValue'])
 
 const errorId = `error-${props.id || generateRandomId()}`
 const labelClass = 'block text-sm font-medium leading-6 text-gray-900'
@@ -111,10 +116,15 @@ const errorClass = 'mt-2 text-sm text-red-600'
 
 const hasError = props.errorMessage || props.helpText
 const isOptional = props.optional
-const isTextInput = ['text', 'number', 'email','file', 'password'].includes(props.type)
+const isTextInput = ['text', 'number', 'email','file', 'password', 'tel'].includes(props.type)
 
 function generateRandomId() {
   // Simple random ID generator for demonstration purposes
   return `input-${Math.random().toString(36).substring(7)}`
+}
+
+const onInput = (event) => {
+  console.log("event", event.target.value)
+  emits('update:modelValue', event.target.value)
 }
 </script>

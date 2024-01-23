@@ -1,35 +1,12 @@
 <template>
   <div>
     <h1 class="text-3xl font-bold mb-4">Dynamic Form</h1>
-    <PForm :fields="formFields" @submit="handleFormSubmit" />
+    <PForm :schema="sampleForm" @submit="handleFormSubmit" />
   </div>
 </template>
 
 <script setup lang="ts">
-
-const formFields = [
-  {
-    type: 'text',
-    label: 'Name',
-    name: 'name',
-    required: true,
-    placeholder: 'Enter your name',
-  },
-  {
-    type: 'email',
-    label: 'Email',
-    name: 'email',
-    required: true,
-    placeholder: 'Enter your email',
-  },
-  {
-    type: 'textarea',
-    label: 'Message',
-    name: 'message',
-    required: true,
-    placeholder: 'Enter your message',
-  },
-]
+import sampleForm from "~/data/sample-form.json"
 
 const handleFormSubmit = (formData) => {
   // Handle the form data (e.g., send it to the server)
