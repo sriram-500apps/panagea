@@ -30,15 +30,22 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const formValues = ref({});
-
 const emits = defineEmits(['update:modelValue']);
+const { name } = props.field;
 
 watchEffect(() => {
-  const { name } = props.field;
 if (!formValues.value[name]) {
     // Initialize nested formValues with the key of field.name
     formValues.value= { [name]: {} };
   }
-  emits('update:modelValue', formValues)
+  emits('update:modelValue', {})
 })
+
+watch(
+    () => formValues.value,
+    (newVal: any) => {
+        emits('update:modelValue', newVal[name])
+    },
+    {deep:true}
+)
 </script>

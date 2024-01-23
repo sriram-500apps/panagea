@@ -54,6 +54,7 @@
           <slot></slot>
         </select>
         <div v-else>
+          {{ type }}
           No field
         </div>
         <!-- End of Input Element -->
@@ -124,7 +125,6 @@ function generateRandomId() {
 }
 
 const onInput = (event) => {
-  console.log("event", event.target.value)
   emits('update:modelValue', event.target.value)
 }
 </script>

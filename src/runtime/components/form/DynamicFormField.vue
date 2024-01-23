@@ -1,15 +1,14 @@
 <template>
-  <!-- Start of Dynamic Form Field -->
   <div>
-    <!-- Use field.type to dynamically render different input types -->
-    <div v-if="field.formType === 'grouped'" class="">
-      <PGrouped :field="field" v-model="formValues[field.name]"></PGrouped>
+    <!-- Start of Dynamic Form Field -->
+    <div v-if="field.formType === 'grouped'">
+      <PGrouped :field="field" v-model="formValues[field.name]" />
     </div>
     <div v-else-if="field.formType === 'wizard'">
-        <PGrouped :field="field" v-model="formValues[field.name]"></PGrouped>
+      <PGrouped :field="field" v-model="formValues[field.name]" />
     </div>
-    <PInputField v-else v-bind="field" v-model="formValues[field.name]"> </PInputField>
-</div>
+    <PInputField v-else v-bind="{...field}" v-model="formValues[field.name]" />
+  </div>
   <!-- End of Dynamic Form Field -->
 </template>
 
@@ -25,14 +24,24 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: null,
 })
 
-const inputValue = ref(null)
 const formValues = ref({})
 const emits = defineEmits(['update:modelValue'])
+const { name } = props.field
+
+watchEffect(() => {
+  if (!formValues[name]) {
+    // Initialize nested formValues to prevent reactivity issues
+    formValues[name] = {}
+  }
+  formValues[name] = props.modelValue
+})
+
+
 
 watch(
     () => formValues.value,
     (newVal: any) => {
-        emits('update:modelValue', newVal)
+        emits('update:modelValue', newVal[name])
     },
     {deep:true}
 )
