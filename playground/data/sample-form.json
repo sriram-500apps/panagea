@@ -1,0 +1,94 @@
+{
+  "formType": "mixed",
+  "title": "Mixed Form Example",
+  "description": "This form includes basic, grouped, and wizard elements.",
+  "fields": [
+    {
+      "type": "text",
+      "label": "First Name",
+      "name": "first_name",
+      "placeholder": "Enter your first name",
+      "isRequired": true
+    },
+    {
+      "type": "select",
+      "label": "Country",
+      "name": "country",
+      "options": ["USA", "Canada", "UK"]
+    },
+    {
+      "formType": "grouped",
+      "title": "Grouped Form Example",
+      "description": "Form fields organized into groups.",
+      "fields": [
+        {
+          "type": "text",
+          "label": "First Name",
+          "name": "first_name",
+          "placeholder": "Enter your first name",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "label": "Last Name",
+          "name": "last_name",
+          "placeholder": "Enter your last name",
+          "isRequired": true
+        },
+        {
+          "type": "email",
+          "label": "Email",
+          "name": "email",
+          "placeholder": "Enter your email",
+          "isRequired": true
+        },
+        {
+          "type": "tel",
+          "label": "Phone Number",
+          "name": "phone",
+          "placeholder": "Enter your phone number"
+        }
+      ]
+    },
+    {
+      "formType": "wizard",
+      "title": "Wizard Form Example",
+      "description": "Form with multiple steps (wizard).",
+      "fields": [
+        {
+          "type": "text",
+          "label": "First Name",
+          "name": "first_name",
+          "placeholder": "Enter your first name",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "label": "Last Name",
+          "name": "last_name",
+          "placeholder": "Enter your last name",
+          "isRequired": true
+        },
+        {
+          "type": "email",
+          "label": "Email",
+          "name": "email",
+          "placeholder": "Enter your email",
+          "isRequired": true
+        },
+        {
+          "type": "tel",
+          "label": "Phone Number",
+          "name": "phone",
+          "placeholder": "Enter your phone number"
+        },
+        {
+          "type": "textarea",
+          "label": "Comments",
+          "name": "comments",
+          "placeholder": "Enter your comments"
+        }
+      ]
+    }
+  ]
+}
