@@ -22,8 +22,7 @@
           :aria-invalid="hasError"
           :aria-describedby="hasError ? errorId : null"
           @input="onInput"
-          @blur="$emit('blur', $event)"
-          @focus="$emit('focus', $event)"
+          @blur="onInput"
         />
         <textarea
           v-else-if="type === 'textarea'"
@@ -38,7 +37,6 @@
           :aria-describedby="hasError ? errorId : null"
           @input="$emit('input', $event.target.value)"
           @blur="$emit('blur', $event)"
-          @focus="$emit('focus', $event)"
         ></textarea>
         <select
           v-else-if="type === 'select'"
@@ -52,7 +50,6 @@
           :aria-describedby="hasError ? errorId : null"
           @change="$emit('change', $event.target.value)"
           @blur="$emit('blur', $event)"
-          @focus="$emit('focus', $event)"
         >
           <slot></slot>
         </select>
@@ -130,6 +127,7 @@ function generateRandomId() {
 }
 
 const onInput = (event) => {
+  inputValue.value = event.target.value;
   emits('update:modelValue', event.target.value)
 }
 </script>

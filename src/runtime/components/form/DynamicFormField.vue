@@ -33,11 +33,11 @@ const emits = defineEmits(['update:modelValue'])
 const { name, formType } = props.field
 
 watchEffect(() => {
-  if (!formValues[name]) {
+  if (!formValues.value[name]) {
     // Initialize nested formValues to prevent reactivity issues
-    formValues[name] = {}
+    formValues.value[name] = {}
   }
-  formValues[name] = props.modelValue
+  formValues.value[name] = props.modelValue
 })
 
 watch(

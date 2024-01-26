@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-3xl font-bold mb-4">Dynamic Form</h1>
-    <PForm :schema="sampleForm" @submit="handleFormSubmit" />
+    <PForm :schema="sampleForm" :defaults="defaultValue" @submit="handleFormSubmit" />
   </div>
 </template>
 
